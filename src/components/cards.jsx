@@ -15,7 +15,6 @@ const Cards = ({ data, nextPhotos }) => {
           <LazyLoad height={200} offset={9999} >
             <div className='card-deck' key={index}>
               {slice.map((photo, index) => {
-                console.log(photo)
                 return (
                   <div className='card mb-4' key={index}>
                     <div className='card-img-top img' style={{backgroundImage: `url(${photo.url_m})`}} alt={photo.title} />
