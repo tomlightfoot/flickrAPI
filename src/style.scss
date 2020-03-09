@@ -1,0 +1,58 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+body {
+  @extend .mx-2;
+}
+
+h1 {
+  @extend .mx-n2;
+}
+
+.img {
+  float:  left;
+  width:  100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+// Bootstrap 4 breakpoints & gutter
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+) !default;
+
+$grid-gutter-width: 30px !default;
+
+// number of cards per line for each breakpoint
+$cards-per-line: (
+    xs: 1,
+    sm: 2,
+    md: 2,
+    lg: 4,
+    xl: 4
+);
+
+@each $name, $breakpoint in $grid-breakpoints {
+    @media (min-width: $breakpoint) {
+        .card-deck .card {
+            flex: 0 0 calc(#{100/map-get($cards-per-line, $name)}% - #{$grid-gutter-width});
+        }
+    }
+}
+
+@media (max-width: 455px) {
+  .btn-toolbar {
+    .btn-group {
+      margin: auto !important;
+    }
+    .input-group {
+      margin: auto !important;
+      padding-top: 1rem;
+      width: 100%;
+    }
+  }
+}
