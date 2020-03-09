@@ -16,7 +16,9 @@ api.fetchPhotos = async (value, page, searchType) => {
   const res = await flickr.photos.search(args)
   const photos = res.body.photos.photo
   for (const photo of photos) {
-    photo.authorLink = await api.fetchPersonInfo(photo.owner)
+    const personInfo = await api.fetchPersonInfo(photo.owner)
+    photo.authorLink = personInfo.url
+    photo.authorName = personInfo.name
     photo.photoLink = await api.fetchPhotoInfo(photo.id)
   }
   return photos
@@ -29,7 +31,10 @@ api.fetchPhotoInfo = async (photoId) => {
 
 api.fetchPersonInfo = async (nsid) => {
   const res = await flickr.people.getInfo({user_id: nsid})
-  return res.body.person.profileurl._content
+  return {
+    name: res.body.person.realname._content,
+    url: res.body.person.profileurl._content
+  }
 }
 
 export default api
