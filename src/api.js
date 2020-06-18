@@ -31,9 +31,10 @@ api.fetchPhotoInfo = async (photoId) => {
 
 api.fetchPersonInfo = async (nsid) => {
   const res = await flickr.people.getInfo({user_id: nsid})
+  const person = res.body.person
   return {
-    name: res.body.person.realname._content,
-    url: res.body.person.profileurl._content
+    name: person.realname && person.realname._content || null,
+    url: person.profileurl && person.profileurl._content || null
   }
 }
 
